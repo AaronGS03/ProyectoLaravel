@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
-use App\Models\Rating;
 use Illuminate\Http\Request;
 
 /**
@@ -33,8 +32,7 @@ class CharacterController extends Controller
     public function create()
     {
         $character = new Character();
-        $ratings = Rating::pluck('id','character_id');
-        return view('character.create', compact('character','ratings'));
+        return view('character.create', compact('character'));
     }
 
     /**
@@ -75,9 +73,8 @@ class CharacterController extends Controller
     public function edit($id)
     {
         $character = Character::find($id);
-        $ratings= Rating::pluck('id','character_id');
 
-        return view('character.edit', compact('character','ratings'));
+        return view('character.edit', compact('character'));
     }
 
     /**

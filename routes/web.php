@@ -21,6 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('ratings',App\Http\Controllers\RatingController::class)->middleware('auth');
-Route::resource('ratings',App\Http\Controllers\CharacterController::class)->middleware('auth');
+Route::resource('characters',App\Http\Controllers\CharacterController::class)->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

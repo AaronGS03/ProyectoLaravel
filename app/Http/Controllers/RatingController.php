@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use App\Models\Character;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,9 @@ class RatingController extends Controller
     public function create()
     {
         $rating = new Rating();
-        return view('rating.create', compact('rating'));
+        $character = Character::pluck('nombre','id');
+        
+        return view('rating.create', compact('rating','character'));
     }
 
     /**
@@ -73,8 +76,9 @@ class RatingController extends Controller
     public function edit($id)
     {
         $rating = Rating::find($id);
+        $character = Character::pluck('nombre','id');
 
-        return view('rating.edit', compact('rating'));
+        return view('rating.edit', compact('rating','character'));
     }
 
     /**
@@ -86,12 +90,17 @@ class RatingController extends Controller
      */
     public function update(Request $request, Rating $rating)
     {
+        try {
         request()->validate(Rating::$rules);
 
         $rating->update($request->all());
 
         return redirect()->route('ratings.index')
             ->with('success', 'Rating updated successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()
+                ->with('error', 'Error: Data truncated for column. Please enter valid data.');
+        }
     }
 
     /**

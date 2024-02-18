@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('imagen')->nullable();
             $table->string('logo')->nullable();
             $table->string('primera_aparicion');
-            $table->float('rating_oficial');
+            $table->string('rating_oficial');
             $table->timestamps();
         });
     }
