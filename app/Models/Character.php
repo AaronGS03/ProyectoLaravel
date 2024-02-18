@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $descripcion
  * @property $imagen
  * @property $logo
+ * @property $color
  * @property $primera_aparicion
  * @property $rating_oficial
  * @property $created_at
@@ -41,7 +42,7 @@ class Character extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','apodos','franquicia','descripcion','imagen','logo','primera_aparicion','rating_oficial'];
+    protected $fillable = ['nombre','apodos','franquicia','descripcion','imagen','logo','color','primera_aparicion','rating_oficial'];
 
 
     /**

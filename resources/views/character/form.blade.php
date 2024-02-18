@@ -32,6 +32,11 @@
             {!! $errors->first('logo', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
+            {{ Form::label('color') }}
+            {{ Form::text('color', $character->color, ['class' => 'form-control' . ($errors->has('color') ? ' is-invalid' : ''), 'placeholder' => 'color']) }}
+            {!! $errors->first('color', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
             {{ Form::label('primera_aparicion') }}
             {{ Form::text('primera_aparicion', $character->primera_aparicion, ['class' => 'form-control' . ($errors->has('primera_aparicion') ? ' is-invalid' : ''), 'placeholder' => 'Primera Aparicion']) }}
             {!! $errors->first('primera_aparicion', '<div class="invalid-feedback">:message</div>') !!}

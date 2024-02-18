@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->string('imagen')->nullable();
             $table->string('logo')->nullable();
+            $table->string('color')->nullable();
             $table->string('primera_aparicion');
             $table->string('rating_oficial');
             $table->timestamps();

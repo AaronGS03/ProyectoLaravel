@@ -1,10 +1,31 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Rating
+    Ratings
 @endsection
 
+
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Personajes ordenados por valoración de "Divertido"</h3>
+            <ul>
+                @foreach ($charactersByFunRating as $character)
+                    <li>{{ $character->nombre }} - {{ $character-->divertido ? $character->divertido : 'No identificado' }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h3>Personajes ordenados por valoración de "No gusta"</h3>
+            <ul>
+                @foreach ($charactersByNoLikeRating as $character)
+                    <li>{{ $character->nombre }} - {{ $character->no_gusta ? $character->no_gusta : 'No identificado' }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+</div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -13,7 +34,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Rating') }}
+                                {{ __('Datos') }}
                             </span>
 
                              <div class="float-right">
@@ -34,7 +55,7 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th></th>
                                         
 										<th>Personaje</th>
 										<th>Divertido</th>
@@ -46,7 +67,7 @@
                                 <tbody>
                                     @foreach ($ratings as $rating)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                        <td><img src="{{$rating->character->logo}}" style="width: 10%; background-color: {{$rating->color}}" alt=""></td>
                                             
 											<td>{{ $rating->character->nombre }}</td>
 											<td>{{ $rating->divertido }}</td>
@@ -54,11 +75,11 @@
 
                                             <td>
                                                 <form action="{{ route('ratings.destroy',$rating->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ratings.show',$rating->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ratings.edit',$rating->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn "style="color:white; background-color: {{ $rating->character->color ? $rating->character->color : '#CCCCCC'}}" href="{{ route('characters.show',$rating->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn"style="color: white; background-color: {{ $rating->character->color ? $rating->character->color : '#CCCCCC'}}" href="{{ route('ratings.edit',$rating->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button style="color: white;background-color: {{ $rating->character->color ? $rating->character->color : '#CCCCCC'}}" type="submit" class="btn btn btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -68,7 +89,6 @@
                         </div>
                     </div>
                 </div>
-                {!! $ratings->links() !!}
             </div>
         </div>
     </div>

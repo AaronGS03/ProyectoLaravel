@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\RatingController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Auth::routes();
 
-Route::resource('ratings',App\Http\Controllers\RatingController::class)->middleware('auth');
-Route::resource('characters',App\Http\Controllers\CharacterController::class)->middleware('auth');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('home', HomeController::class);
+Route::resource('ratings', RatingController::class)->middleware('auth');
+Route::resource('characters', CharacterController::class)->middleware('auth');

@@ -19,10 +19,14 @@ class RatingController extends Controller
      */
     public function index()
     {
-        $ratings = Rating::paginate();
+        $ratings= Rating::all();
+        // Obtener todos los personajes y ordenarlos por valoración de "divertido"
+    $charactersByFunRating = Rating::orderBy('divertido', 'desc')->get();
 
-        return view('rating.index', compact('ratings'))
-            ->with('i', (request()->input('page', 1) - 1) * $ratings->perPage());
+    // Obtener todos los personajes y ordenarlos por valoración de "no gusta"
+    $charactersByNoLikeRating = Rating::orderBy('no_gusta', 'desc')->get();
+
+    return view('rating.index', compact('ratings','charactersByFunRating', 'charactersByNoLikeRating'));
     }
 
     /**

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Character;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class HomeController extends Controller
 {
@@ -23,6 +28,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+            $characters = Character::orderBy(DB::raw('FIELD(rating_oficial, "S+", "S", "S-", "A+", "A-", "B+", "B-", "C+", "C-","D+","D-")'))
+            ->orderBy('nombre')
+            ->get();
+
+return view('welcome', compact('characters'));
+    }
+        public function show($id)
+    {
+        $character = Character::find($id);
+
+        return view('character.show', compact('character'));
     }
 }

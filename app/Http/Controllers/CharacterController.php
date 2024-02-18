@@ -18,10 +18,9 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        $characters = Character::paginate();
+        $characters = Character::all();
 
-        return view('character.index', compact('characters'))
-            ->with('i', (request()->input('page', 1) - 1) * $characters->perPage());
+        return view('character.index', compact('characters'));
     }
 
     /**
@@ -59,8 +58,7 @@ class CharacterController extends Controller
      */
     public function show($id)
     {
-        $character = Character::find($id);
-
+        $character = Character::findOrFail($id);
         return view('character.show', compact('character'));
     }
 

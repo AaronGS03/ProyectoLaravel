@@ -28,20 +28,18 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-
+                    @php
+            @endphp
+          
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
+                                        <th></th>
 										<th>Nombre</th>
 										<th>Apodos</th>
 										<th>Franquicia</th>
-										<th>Descripcion</th>
-										<th>Imagen</th>
-										<th>Logo</th>
 										<th>Primera Aparicion</th>
 										<th>Rating Oficial</th>
 
@@ -51,24 +49,23 @@
                                 <tbody>
                                     @foreach ($characters as $character)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td style="background-color: {{ $character->color }};">
+                                                <img src="{{ $character->logo }}" alt="{{ $character->nombre }}" style="width: 50px; height: auto;">
+                                            </td>
                                             
 											<td>{{ $character->nombre }}</td>
 											<td>{{ $character->apodos }}</td>
 											<td>{{ $character->franquicia }}</td>
-											<td>{{ $character->descripcion }}</td>
-											<td>{{ $character->imagen }}</td>
-											<td>{{ $character->logo }}</td>
 											<td>{{ $character->primera_aparicion }}</td>
 											<td>{{ $character->rating_oficial }}</td>
 
                                             <td>
                                                 <form action="{{ route('characters.destroy',$character->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('characters.show',$character->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('characters.edit',$character->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('characters.show',$character->id) }}" style="color:white; border-color:{{$character->color}}; background-color: {{$character->color}}"><i class="fa fa-fw fa-eye"></i> {{ __('Detalles') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('characters.edit',$character->id) }}" style="color:white; border-color:{{$character->color}}; background-color: {{$character->color}}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" style="color:white; border-color:{{$character->color}}; background-color: {{$character->color}}"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -78,7 +75,6 @@
                         </div>
                     </div>
                 </div>
-                {!! $characters->links() !!}
             </div>
         </div>
     </div>

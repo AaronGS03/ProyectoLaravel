@@ -2,22 +2,20 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+<div class="row">
+            @foreach ($characters as $character)
+                <div class="col-md-6 mb-4">
+                    <div class="card horizontal-card">
+                        <div class="card-img">
+                            <img src="{{ $character->logo }}" class="img-fluid" alt="{{ $character->nombre }}">
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $character->nombre }}</h5>
+                            <p class="card-text">Rating: {{ $character->rating_oficial }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-    </div>
 </div>
 @endsection
