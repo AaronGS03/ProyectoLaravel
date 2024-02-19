@@ -6,26 +6,75 @@
 
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-bottom:100px">
     <div class="row">
         <div class="col-md-6">
-            <h3>Personajes ordenados por valoración de "Divertido"</h3>
-            <ul>
-                @foreach ($charactersByFunRating as $character)
-                    <li>{{ $character->nombre }} - {{ $character-->divertido ? $character->divertido : 'No identificado' }}</li>
-                @endforeach
-            </ul>
+            <div class="card w-100 h-100" style="width: 18rem;">
+                <div class="card-header">
+                    Divertidos de jugar
+                </div>
+                <ul class="list-group list-group-flush">
+                    @php
+                        $halfCharacters = ceil($charactersByFunRating->count() / 2);
+                        $firstHalf = $charactersByFunRating->take($halfCharacters);
+                        $secondHalf = $charactersByFunRating->skip($halfCharacters);
+                    @endphp
+                    <div class="row">
+                        <div class="col">
+                            @foreach ($firstHalf as $character)
+                                <li class="list-group-item">
+                                    <img src="{{$character->logo}}" style="width:10%">
+                                    {{ $character->nombre }} - {{ $character->ratings->first() ? $character->ratings->first()->divertido : 'No definido' }}
+                                </li>
+                            @endforeach
+                        </div>
+                        <div class="col">
+                            @foreach ($secondHalf as $character)
+                                <li class="list-group-item">
+                                    <img src="{{$character->logo}}" style="width:10%">
+                                    {{ $character->nombre }} - {{ $character->ratings->first() ? $character->ratings->first()->divertido : 'No definido' }}
+                                </li>
+                            @endforeach
+                        </div>
+                    </div>
+                </ul>
+            </div>
         </div>
         <div class="col-md-6">
-            <h3>Personajes ordenados por valoración de "No gusta"</h3>
-            <ul>
-                @foreach ($charactersByNoLikeRating as $character)
-                    <li>{{ $character->nombre }} - {{ $character->no_gusta ? $character->no_gusta : 'No identificado' }}</li>
-                @endforeach
-            </ul>
+            <div class="card w-100 h-100" style="width: 18rem;">
+                <div class="card-header">
+                    Como contrincantes
+                </div>
+                <ul class="list-group list-group-flush">
+                    @php
+                        $halfCharacters = ceil($charactersByNoLikeRating->count() / 2);
+                        $firstHalf = $charactersByNoLikeRating->take($halfCharacters);
+                        $secondHalf = $charactersByNoLikeRating->skip($halfCharacters);
+                    @endphp
+                    <div class="row">
+                        <div class="col">
+                            @foreach ($firstHalf as $character)
+                                <li class="list-group-item">
+                                    <img src="{{$character->logo}}" style="width:10%">
+                                    {{ $character->nombre }} - {{ $character->ratings->first() ? $character->ratings->first()->no_gusta : 'No definido' }}
+                                </li>
+                            @endforeach
+                        </div>
+                        <div class="col">
+                            @foreach ($secondHalf as $character)
+                                <li class="list-group-item">
+                                    <img src="{{$character->logo}}" style="width:10%">
+                                    {{ $character->nombre }} - {{ $character->ratings->first() ? $character->ratings->first()->no_gusta : 'No definido' }}
+                                </li>
+                            @endforeach
+                        </div>
+                    </div>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
